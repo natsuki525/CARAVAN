@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   end
 
   def index
-  	#記事を前件取得
+  	#記事を全件取得
   	@blogs = Blog.all
   end
 
@@ -15,14 +15,16 @@ class BlogsController < ApplicationController
   def create
   	blog = Blog.new(blog_params)
   	blog.save
-  	redirect_to blog_path
-  end
-
-  def edit
+  	redirect_to blogs_path
   end
 
   private
   def blog_params
   	params.require(:blog).permit(:title, :category, :body)
   end
+
+  def edit
+    @blog = Blog.find(params[id:])
+  end
+
 end
